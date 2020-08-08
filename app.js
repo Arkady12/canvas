@@ -1,34 +1,29 @@
 var canvas = document.getElementById("canvas")
 var ctx = canvas.getContext('2d');
+var snake =[
+    [3, 2],
+    [2, 2],
+]
 
-var clicked = false
-canvas.addEventListener('click',function(event){
-    var y = event.y-10
-    var x = event.x-10
-    if(clicked){
-        ctx.lineTo(x, y)
-        ctx.stroke()
-    }else{
-        ctx.moveTo(x, y) 
-         
-    }
-    clicked = !clicked
-}) 
-canvas.addEventListener('mousemove',function(event){
-    console.log(event)
+var blockWidth = canvas.width/10
+var blockHeight = canvas.height/10
 
-    var y = event.y-10
-    var x = event.x-10
+function blockCoordsToPixels(blockCoords){
+    return [
+        blockWidth*(blockCoords[0]-1),
+        blockHeight*(blockCoords[1]-1)
+    ]    
+}
+
+
+snake.forEach(function(blockCoords,index){
+    var coordsInPixels = blockCoordsToPixels(blockCoords)
     
-    if(clicked){
-        ctx.lineTo(x, y)
-        ctx.stroke()
+    if (index==0){
+        ctx.fillStyle = '#00BFF5'
+    } else {
+        ctx.fillStyle ='#000000'
     }
-})
-document.getElementById('clear').addEventListener('click',function(){
-    var inputs = document.getElementsByTagName('input')
-    ctx.clearRect(0,0,canvas.width,canvas.height)
-    console.log(inputs)
-    ctx.beginPath()
 
+    ctx.fillRect(coordsInPixels[0],coordsInPixels[1],blockWidth,blockHeight )
 })

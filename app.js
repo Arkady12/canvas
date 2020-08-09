@@ -27,3 +27,9 @@ snake.forEach(function(blockCoords,index){
 
     ctx.fillRect(coordsInPixels[0],coordsInPixels[1],blockWidth,blockHeight )
 })
+document.addEventListener('keydown',function(event){
+    
+    if(event.code=="Space"){
+        console.log(event)
+    }
+})

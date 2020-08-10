@@ -107,3 +107,4 @@ leftButton.addEventListener('click',function(){
         direction='down'
     }
  })
+ canvas.addEventListener('click', step)

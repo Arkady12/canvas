@@ -11,6 +11,12 @@
         width='320'
         id='canvas'
     ></canvas>
+    <div class="controls">
+        <button class="top">↑</button>
+        <button class="left">←</button>
+        <button class="right">→</button>
+        <button class="down">↓</button>
+    </div>
 
     <style>
         body{
@@ -18,6 +24,39 @@
         }
         #canvas{
             border: 2px solid;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            height: 134px;
+            width: 140px;
+        }
+
+        .controls * {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+        }
+
+        .top, .down {
+            left: 45px;
+        }
+        .top {
+            top: 0;
+        }
+        .down {
+            bottom: 0;
+        }
+        .left, .right {
+            top: 40px;
+        }
+        .left {
+            left: 0;
+        }
+        .right {
+            right: 0
         }
     </style>
 

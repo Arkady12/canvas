@@ -107,4 +107,5 @@ leftButton.addEventListener('click',function(){
         direction='down'
     }
  })
- canvas.addEventListener('click', step)
+ var moveButton = document.getElementsByClassName("move")[0]
+ moveButton.addEventListener('click', step)

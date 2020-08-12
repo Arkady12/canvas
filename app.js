@@ -4,6 +4,7 @@ var snake = [
     [3, 2],
     [2, 2],
 ]
+var food = [9,9]
 var direction = 'right'
 
 var blockWidth = canvas.width/10
@@ -17,9 +18,8 @@ function blockCoordsToPixels(blockCoords){
 }
 function clearCanvas(){
     ctx.clearRect(0,0,canvas.width,canvas.height)
-}
-function drawSnake(){
-    clearCanvas()
+} 
+function drawSnake (){
     snake.forEach(function(blockCoords,index){
         var coordsInPixels = blockCoordsToPixels(blockCoords)
         
@@ -30,10 +30,38 @@ function drawSnake(){
         }
         
         ctx.fillRect(coordsInPixels[0],coordsInPixels[1],blockWidth,blockHeight )
-    })    
+    })  
+}
+function drawFood (){
+    var coordsInPixels = blockCoordsToPixels(food)
+    ctx.fillStyle = 'red'
+    ctx.fillRect(coordsInPixels[0],coordsInPixels[1],blockWidth,blockHeight )
+}
+
+function randomInteger(min, max) {
+    let rand = min + Math.random() * (max + 1 - min);
+    return Math.floor(rand);
+}
+function checkSamePosition(a, b) {
+    return a[0] == b[0] && a[1] == b[1]
+}
+function moveFood() {
+    var newPosition
+    var newPositionIsInSnake = false
+    do {
+        newPosition = [
+            randomInteger(1,10),
+            randomInteger(1,10)
+        ]
+
+        newPositionIsInSnake = snake.some(function(blockCoords){
+            return checkSamePosition(newPosition, blockCoords)
+        })
+    } while (newPositionIsInSnake)
+
+    food = newPosition
 }
 function moveSnake(){
-    snake.pop()
     var newHead = snake[0].slice()
    
     if(direction=='left'){
@@ -50,12 +78,23 @@ function moveSnake(){
     }
 
     snake.unshift(newHead)
+
+    if (checkSamePosition(newHead, food)){
+       moveFood()
+    } else {
+       snake.pop()
+    }
+}
+function draw(){
+    clearCanvas()
+    drawSnake()
+    drawFood()
 }
 function step (){
     moveSnake()
-    drawSnake()
+    draw()
 }
-drawSnake()
+draw()
 document.addEventListener('keydown',function(event){
     if (event.code=="Space"){
        step()

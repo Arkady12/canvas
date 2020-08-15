@@ -1,11 +1,13 @@
 var canvas = document.getElementById("canvas")
 var ctx = canvas.getContext('2d');
+
 var snake = [
     [3, 2],
     [2, 2],
 ]
 var food = [9,9]
 var direction = 'right'
+var lastDirection = direction
 
 var blockWidth = canvas.width/10
 var blockHeight = canvas.height/10
@@ -54,7 +56,7 @@ function moveFood() {
             randomInteger(1,10)
         ]
 
-        newPositionIsInSnake = snake.some(function(blockCoords){
+        isNewPositionInSnake = snake.some(function(blockCoords){
             return checkSamePosition(newPosition, blockCoords)
         })
     } while (newPositionIsInSnake)
@@ -85,6 +87,18 @@ function moveSnake(){
        snake.pop()
     }
 }
+function checkGameOver(){
+    var isHeadInBody = snake.some(function(blockCoords,index){
+        if (blockCoords==snake[0]) {
+            return false
+        }
+
+        return checkSamePosition(snake[0], blockCoords)
+    })
+    if(snake[0][0] == 0 || snake[0][0]==11 || snake[0][1]==0 || snake[0][1]==11 || isHeadInBody){
+        alert('game over')
+    }
+}
 function draw(){
     clearCanvas()
     drawSnake()
@@ -92,16 +106,21 @@ function draw(){
 }
 function step (){
     moveSnake()
+    checkGameOver()
     draw()
+    lastDirection = direction
 }
+
 draw()
-document.addEventListener('keydown',function(event){
+
+document.addEventListener('keydown', function(event){
     if (event.code=="Space"){
        step()
     }
-
     
-    if (direction=='down' || direction=='up'){
+    
+    
+    if (lastDirection=='down' || lastDirection=='up'){
         if (event.code=="ArrowLeft"){
             direction='left'
         }
@@ -110,7 +129,7 @@ document.addEventListener('keydown',function(event){
             direction='right'
         }
     }
-    if (direction=='left' || direction=='right'){
+    if (lastDirection=='left' || lastDirection=='right'){
         if (event.code=="ArrowDown"){
             direction='down'
         }

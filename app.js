@@ -55,7 +55,7 @@ function checkSamePosition(a, b) {
 }
 function moveFood() {
     var newPosition
-    var newPositionIsInSnake = false
+    var isNewPositionInSnake = false
     do {
         newPosition = [
             randomInteger(1,10),
@@ -65,7 +65,7 @@ function moveFood() {
         isNewPositionInSnake = snake.some(function(blockCoords){
             return checkSamePosition(newPosition, blockCoords)
         })
-    } while (newPositionIsInSnake)
+    } while (isNewPositionInSnake)
 
     food = newPosition
 }

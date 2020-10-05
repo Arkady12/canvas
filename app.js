@@ -1,13 +1,18 @@
 var canvas = document.getElementById("canvas")
 var ctx = canvas.getContext('2d');
 
+canvas.width = canvas.offsetWidth;
+canvas.height = canvas.offsetHeight;
+
 var snake
 var food
 var direction
 var lastDirection
 
-var blockWidth = canvas.width/10
-var blockHeight = canvas.height/10
+var blockWidthCount = 30
+var blockSize = Math.round(window.innerWidth/blockWidthCount)
+var blockHeightCount = Math.round(window.innerHeight/blockSize) 
+console.log(blockHeightCount)
 function resetState(){
     snake = [
         [3, 2],
@@ -20,8 +25,8 @@ function resetState(){
 
 function blockCoordsToPixels(blockCoords){
     return [
-        blockWidth*(blockCoords[0]-1),
-        blockHeight*(blockCoords[1]-1)
+        blockSize*(blockCoords[0]-1),
+        blockSize*(blockCoords[1]-1)
     ]    
 }
 function clearCanvas(){
@@ -37,13 +42,13 @@ function drawSnake (){
             ctx.fillStyle ='#000000'
         }
         
-        ctx.fillRect(coordsInPixels[0],coordsInPixels[1],blockWidth,blockHeight )
+        ctx.fillRect(coordsInPixels[0],coordsInPixels[1],blockSize,blockSize )
     })  
 }
 function drawFood (){
     var coordsInPixels = blockCoordsToPixels(food)
     ctx.fillStyle = 'red'
-    ctx.fillRect(coordsInPixels[0],coordsInPixels[1],blockWidth,blockHeight )
+    ctx.fillRect(coordsInPixels[0],coordsInPixels[1],blockSize,blockSize )
 }
 
 function randomInteger(min, max) {
@@ -58,8 +63,8 @@ function moveFood() {
     var isNewPositionInSnake = false
     do {
         newPosition = [
-            randomInteger(1,10),
-            randomInteger(1,10)
+            randomInteger(1,blockWidthCount),
+            randomInteger(1,blockHeightCount)
         ]
 
         isNewPositionInSnake = snake.some(function(blockCoords){
@@ -102,8 +107,8 @@ function checkGameOver(){
 
         return checkSamePosition(snake[0], blockCoords)
     })
-    if(snake[0][0] == 0 || snake[0][0]==11 || snake[0][1]==0 || snake[0][1]==11 || isHeadInBody){
-        alert('game over')
+    if(snake[0][0] == 0 || snake[0][0]>blockWidthCount || snake[0][1]==0 || snake[0][1]>blockHeightCount || isHeadInBody){
+        // alert('game over')
         resetState()
     }
 }
@@ -120,7 +125,7 @@ function step (){
 }
 resetState()
 draw()
-setInterval(step,500)
+setInterval(step,200)
 
 function tryToRotate (dir) {
     var graph = {

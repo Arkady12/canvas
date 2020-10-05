@@ -4,10 +4,14 @@ var ctx = canvas.getContext('2d');
 canvas.width = canvas.offsetWidth;
 canvas.height = canvas.offsetHeight;
 
+var pic = new Image();              // "Создаём" изображение
+pic.src = 'snake.png';
+
 var snake
 var food
 var direction
 var lastDirection
+
 
 var blockWidthCount = 30
 var blockSize = Math.round(window.innerWidth/blockWidthCount)
@@ -37,18 +41,29 @@ function drawSnake (){
         var coordsInPixels = blockCoordsToPixels(blockCoords)
         
         if (index==0){
-            ctx.fillStyle = '#00BFF5'
+            if(direction=='right'){
+                ctx.drawImage(pic, 256, 0, 64, 64, coordsInPixels[0],coordsInPixels[1], blockSize,blockSize);
+            }
+            if(direction=='up'){
+                ctx.drawImage(pic, 192, 0, 64, 64, coordsInPixels[0],coordsInPixels[1], blockSize,blockSize); 
+            }
+            if(direction=='left'){
+                ctx.drawImage(pic, 192, 64, 64, 64, coordsInPixels[0],coordsInPixels[1], blockSize,blockSize);
+            
+            }
+            if(direction=='down'){
+                ctx.drawImage(pic, 256, 64, 64, 64, coordsInPixels[0],coordsInPixels[1], blockSize,blockSize);
+            }
         } else {
             ctx.fillStyle ='#000000'
+            ctx.fillRect(coordsInPixels[0],coordsInPixels[1],blockSize,blockSize )
         }
         
-        ctx.fillRect(coordsInPixels[0],coordsInPixels[1],blockSize,blockSize )
     })  
 }
 function drawFood (){
     var coordsInPixels = blockCoordsToPixels(food)
-    ctx.fillStyle = 'red'
-    ctx.fillRect(coordsInPixels[0],coordsInPixels[1],blockSize,blockSize )
+    ctx.drawImage(pic, 0, 192, 64, 64, coordsInPixels[0],coordsInPixels[1], blockSize,blockSize); 
 }
 
 function randomInteger(min, max) {

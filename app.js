@@ -12,8 +12,9 @@ var food
 var direction
 var lastDirection
 
-
-var blockWidthCount = 30
+var baseBlockSize = 20
+var blockWidthCount = Math.round(window.innerWidth/baseBlockSize)
+blockWidthCount = blockWidthCount < 30 ? blockWidthCount : 30  
 var blockSize = Math.round(window.innerWidth/blockWidthCount)
 var blockHeightCount = Math.round(window.innerHeight/blockSize) 
 console.log(blockHeightCount)

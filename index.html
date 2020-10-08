@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="manifest.webmanifest">
@@ -17,55 +18,9 @@
         <button class="right">→</button>
         <button class="down">↓</button>
     </div>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-        body, html {
-            height: 100%;
-            margin: 0;
-        }
-        #canvas{
-            border: 2px solid;
-            width:100%;
-            height:100%;
-        }
-
-        .controls {
-            position: fixed;
-            bottom: 0;
-            right: 0;
-            height: 134px;
-            width: 140px;
-        }
-
-        .controls * {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            opacity: 0.5;
-        }
-
-        .top, .down {
-            left: 45px;
-        }
-        .top {
-            top: 0;
-        }
-        .down {
-            bottom: 0;
-        }
-        .left, .right {
-            top: 40px;
-        }
-        .left {
-            left: 0;
-        }
-        .right {
-            right: 0
-        }
-    </style>
+    <div class="menu">
+        <button class="start-button">Start</button>
+    </div>
 
     <script src="app.js"></script>
     <script>

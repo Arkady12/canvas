@@ -11,6 +11,7 @@ var snake
 var food
 var direction
 var lastDirection
+var interval
 
 var baseBlockSize = 20
 var blockWidthCount = Math.round(window.innerWidth/baseBlockSize)
@@ -222,6 +223,13 @@ function moveSnake(){
        snake.pop()
     }
 }
+var menu = document.querySelector('.menu')
+var startButton = document.querySelector('.start-button')
+startButton.addEventListener('click',function(){
+    startGame()
+    menu.style.display = 'none'
+    
+})
 function checkGameOver(){
     var isHeadInBody = snake.some(function(blockCoords,index){
         if (blockCoords==snake[0]) {
@@ -234,6 +242,9 @@ function checkGameOver(){
     if(snake[0][0] == 0 || snake[0][0]>blockWidthCount || snake[0][1]==0 || snake[0][1]>blockHeightCount || isHeadInBody){
         // alert('game over')
         resetState()
+        clearInterval(interval)
+        menu.style.display = 'block'
+
     }
 }
 function draw(){
@@ -247,9 +258,11 @@ function step (){
     draw()
     lastDirection = direction
 }
-resetState()
-draw()
-setInterval(step,200)
+function startGame () {
+    resetState()
+    draw()
+    interval = setInterval(step,100)
+}
 
 function tryToRotate (dir) {
     var graph = {
@@ -280,15 +293,16 @@ var leftButton = document.getElementsByClassName("left")[0]
 var rightButton = document.getElementsByClassName("right")[0]
 var downButton = document.getElementsByClassName("down")[0]
 
-topButton.addEventListener('click',function() {
+topButton.addEventListener('mousedown',function() {
     tryToRotate('up')
 })
-leftButton.addEventListener('click',function(){
+leftButton.addEventListener('mousedown',function(){
     tryToRotate('left')
- })
- rightButton.addEventListener('click',function(){
+})
+ rightButton.addEventListener('mousedown',function(){
     tryToRotate('right')
- })
- downButton.addEventListener('click',function(){
+})
+ downButton.addEventListener('mousedown',function(){
     tryToRotate('down')
- })
+})
+

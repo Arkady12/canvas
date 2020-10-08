@@ -1,0 +1,87 @@
+* {
+    box-sizing: border-box;
+}
+body, html {
+    height: 100%;
+    margin: 0;
+}
+#canvas{
+    border: 2px solid;
+    width:100%;
+    height:100%;
+}
+
+.controls {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    height: 134px;
+    width: 140px;
+}
+
+.controls * {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    opacity: 0.5;
+}
+
+.top, .down {
+    left: 45px;
+}
+.top {
+    top: 0;
+}
+.down {
+    bottom: 0;
+}
+.left, .right {
+    top: 40px;
+}
+.left {
+    left: 0;
+}
+.right {
+    right: 0
+}
+.menu {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    top: 0;
+    padding: 10px;
+}
+.start-modal {
+    position: fixed;
+    top: 50%;
+    width: 100%;
+    max-width: 600px;
+    background: white;
+    min-height: 400px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 30px;
+}
+.start-button {
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    left:50%;
+    max-width: 600px;
+
+    width: 100%;
+    background: linear-gradient(180deg, rgba(34,203,32,1) 0%, rgba(136,70,255,1) 100%);
+    border: none;
+    padding: 15px;
+    color:#fff;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 10px;
+
+}
+.start-button:hover{
+    background: linear-gradient(180deg, rgba(34,203,32,1) 28%, rgba(255,70,70,1) 70%);
+    cursor: pointer;
+}

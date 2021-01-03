@@ -261,7 +261,7 @@ function step (){
 function startGame () {
     resetState()
     draw()
-    interval = setInterval(step,100)
+    interval = setInterval(step,200)
 }
 
 function tryToRotate (dir) {

@@ -5,6 +5,11 @@ body, html {
     height: 100%;
     margin: 0;
 }
+.score-wrapper {
+    position: fixed;
+    padding-left: 100px;
+    padding-top: 10px;
+}
 #canvas{
     border: 2px solid;
     width:100%;

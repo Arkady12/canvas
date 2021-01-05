@@ -12,13 +12,14 @@ var food
 var direction
 var lastDirection
 var interval
+var score
 
 var baseBlockSize = 20
 var blockWidthCount = Math.round(window.innerWidth/baseBlockSize)
 blockWidthCount = blockWidthCount < 30 ? blockWidthCount : 30  
 var blockSize = Math.round(window.innerWidth/blockWidthCount)
 var blockHeightCount = Math.round(window.innerHeight/blockSize) 
-console.log(blockHeightCount)
+
 function resetState(){
     snake = [
         [3, 2],
@@ -27,6 +28,7 @@ function resetState(){
     food = [9,9]
     direction = 'right'
     lastDirection = direction
+    score = 0
 }
 
 function blockCoordsToPixels(blockCoords){
@@ -219,22 +221,22 @@ function moveSnake(){
 
     if (checkSamePosition(newHead, food)){
        moveFood()
+       score = score+1
     } else {
        snake.pop()
     }
 }
 var menu = document.querySelector('.menu')
 var startButton = document.querySelector('.start-button')
+var scoreWrapper = document.querySelector('.score-wrapper')
+var scoreElement = document.querySelector('.score')
 startButton.addEventListener('click',function(){
     startGame()
-    menu.style.display = 'none'
-    
 })
 function checkGameOver(){
     var isHeadInBody = snake.some(function(blockCoords,index){
         if (blockCoords==snake[0]) {
             return false
-            
         }
 
         return checkSamePosition(snake[0], blockCoords)
@@ -244,6 +246,7 @@ function checkGameOver(){
         resetState()
         clearInterval(interval)
         menu.style.display = 'block'
+        scoreWrapper.style.display = 'none'
 
     }
 }
@@ -251,6 +254,7 @@ function draw(){
     clearCanvas()
     drawSnake()
     drawFood()
+    scoreElement.innerHTML = score
 }
 function step (){
     moveSnake()
@@ -259,6 +263,8 @@ function step (){
     lastDirection = direction
 }
 function startGame () {
+    menu.style.display = 'none'
+    scoreWrapper.style.display = 'block'
     resetState()
     draw()
     interval = setInterval(step,200)
